@@ -8,7 +8,7 @@ pub struct Generator {
 }
 
 impl Generator {
-    pub fn new(pwopts: &PwOpts) -> Generator {
+    pub fn new(pwopts: &PwOpts) -> Self {
         let mut seed: Vec<char> = vec![];
 
         if !pwopts.x_lower {
@@ -27,10 +27,10 @@ impl Generator {
             seed.extend("!@#$%^&*()<>,./".chars());
         }
 
-        return Generator {
+        Self {
             pwlen: pwopts.pwlen,
             seed,
-        };
+        }
     }
 
     pub fn generate(&self) -> String {
@@ -43,7 +43,7 @@ impl Generator {
                     let index = rng.gen_range(0..self.seed.len());
                     self.seed[index]
                 })
-                .collect();
+                .collect::<String>();
         }
 
         let mut password = String::with_capacity(self.pwlen);
