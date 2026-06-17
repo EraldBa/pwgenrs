@@ -35,34 +35,12 @@ impl Generator {
 
     pub fn generate(&self) -> String {
         let mut rng = OsRng::default();
-        let use_unique_chars = self.pwlen < self.seed.len();
 
-        if !use_unique_chars {
-            return (0..self.pwlen)
-                .map(|_| {
-                    let index = rng.gen_range(0..self.seed.len());
-                    self.seed[index]
-                })
-                .collect::<String>();
-        }
-
-        let mut password = String::with_capacity(self.pwlen);
-
-        for _ in 0..self.pwlen {
-            let mut ch: char;
-
-            loop {
+        return (0..self.pwlen)
+            .map(|_| {
                 let index = rng.gen_range(0..self.seed.len());
-                ch = self.seed[index];
-
-                if !password.contains(ch) {
-                    break;
-                }
-            }
-
-            password.push(ch);
-        }
-
-        password
+                self.seed[index]
+            })
+            .collect::<String>();
     }
 }
